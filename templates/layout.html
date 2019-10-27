@@ -1,219 +1,220 @@
 {%- set base_url = '/'|url(alt='es') -%}
 
-{%- from "macros/translation.html" import transbag -%}
-
-{%- macro menu_item(identifier) -%}
-{% set identifier_url = '/' + identifier %}
-{% set trans_url = identifier_url|url(alt=this.alt) %}
-{% set this_is_child = this.is_child_of(identifier_url) %}
-
-<li class="{% if this_is_child %}active{% endif %}">
-  <a href="{{ trans_url }}">{{ transbag('menu', this.alt, identifier) }}</a>
-</li>
-{%- endmacro -%}
-
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="keywords" content="Python Pereira, Python Colombia">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="Grayrids">
+    <title>PyPereira - Comunidad Python Pereira</title>
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="Sergey Pozhilov (GetTemplate.com)">
+    <meta property="og:title" content="PyPereira - Comunidad Python Pereira, Risaralda. Colombia">
+    <meta property="og:description"
+      content="Comunidad Pereirana creada con el objetivo de reunir a los usuarios desarrolladores y apasionados por Python y sus derivados">
+    <meta property="og:image" content="https://pypereira.co/static/images/summary.jpg">
+    <meta property="og:url" content="https://PyPereira.co">
+    <meta name="twitter:card" content="summary_large_image">
+    <!--====== Favicon Icon ======-->
+    <link rel="shortcut icon" href="{{ base_url }}static/images/favicon.ico" type="image/png">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ base_url }}static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ base_url }}static/css/animate.css">
+    <link rel="stylesheet" href="{{ base_url }}static/css/LineIcons.css">
+    <link rel="stylesheet" href="{{ base_url }}static/css/owl.carousel.css">
+    <link rel="stylesheet" href="{{ base_url }}static/css/owl.theme.css">
+    <link rel="stylesheet" href="{{ base_url }}static/css/magnific-popup.css">
+    <link rel="stylesheet" href="{{ base_url }}static/css/nivo-lightbox.css">
+    <link rel="stylesheet" href="{{ base_url }}static/css/main.css">    
+    <link rel="stylesheet" href="{{ base_url }}static/css/responsive.css">
 
-  <title>PyPereira - Comunidad Python Pereira</title>
+  </head>
+  
+  <body>
 
-  <meta property="og:title" content="PyPereira - Comunidad Python Pereira, Risaralda. Colombia">
-  <meta property="og:description" content="Comunidad Pereirana creada con el objetivo de reunir a los usuarios desarrolladores y apasionados por Python y sus derivados">
-  <meta property="og:image" content="https://pypereira.co/static/images/summary.jpg">
-  <meta property="og:url" content="https://PyPereira.co">
-  <meta name="twitter:card" content="summary_large_image">
-
-  <link rel="shortcut icon" href="{{ base_url }}static/images/favicon.ico">
-
-  <!-- Bootstrap -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-  <!-- Icons -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-
-  <!-- Fonts -->
-  <link rel="stylesheet" href="  https://fonts.googleapis.com/css?family=Alice|Open+Sans:400,300,700">
-  <!-- Custom styles -->
-  <link rel="stylesheet" href="{{ base_url }}static/css/styles.css">
-
-  <!--[if lt IE 9]> <script src="assets/js/html5shiv.js"></script> <![endif]-->
-
-</head>
-
-<body class="home">
-  <header id="header">
-    <div id="head" class="parallax" parallax-speed="2">
-      <div class="row justify-content-center no-size">
-        <div class="col-md-4">
-          <h1 id="logo" class="text-center">
-            <img class="logo-pypereira" src="{{ base_url }}static/images/2019.svg" alt="">
-            <span class="title primary-color"><div class="title-text fredoka">PY</div><div class="title-text viga">PEREIRA</div></span>
-            <span class="tagline gt-walsheim primary-color">Comunidad Python Pereira<br>
-              <a href="">python.pereira@gmail.com</a></span>
-          </h1>
-        </div>
-        {% set events = site.query('/eventos', alt=this.alt).filter(F.success).filter(F.post) %}
-        {% if events %}
-          <div class="col-md-4">
-            {% for event in events %}
-              <div class="card-event">
-                <div class="row">
-                  <div class="col-2">
-                    <div class="row justify-content-center text-center">
-                      <h1 class="gt-walsheim primary-color">
-                        {{ event.pub_date.strftime('%d') }}
-                      </h1>
-                      <br />
-                      <h5 class="fredoka primary-color text-uppercase">
-                        {{ event.pub_date.strftime('%b') }}
-                      </h5>
-                    </div>
-                  </div>
-                  <div class="col-10">
-                    <div class="gt-walsheim">{{ event.title }}</div>
-                    <hr />
-                    <div class="row justify-content-center text-center">
-                      <a href="{{ event|url(alt=this.alt) }}" class="btn btn-info">Evento</a>
-                      {%- if event.meetup_url -%}
-                        <a href="{{ event.meetup_url }}" class="btn btn-warning" target="_blank">Inscripción</a>
-                      {%- endif -%}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            {% endfor %}
-          </div>
-        {% endif %}
+    <!-- Header Section Start -->
+    <header id="home" class="hero-area">    
+      <div class="overlay">
+        <span></span>
+        <span></span>
       </div>
-    </div>
-    <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light navbar-sticky navbar-default">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li{% if this._path=='/' %} class="active" {% endif %}>
-            <a href="{{ '/'|url }}">Inicio</a>
-            </li>
-            {% for href, title in [
+      <nav class="navbar navbar-expand-md bg-inverse fixed-top scrolling-navbar">
+        <div class="container">
+          <a href="index.html" class="navbar-brand"><img src="{{ base_url }}static/img/logo.png" alt=""></a>       
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="lni-menu"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto w-100 justify-content-end">
+              <li class="nav-item">
+                <a class="nav-link page-scroll {% if this._path=='/' %}active{% endif %}" href="{{ '/'|url }}">Inicio</a>
+              </li>
+              {% for href, title in [
                 ['/eventos', 'Eventos'],
                 ['/patrocinadores', 'Patrocinadores'],
                 ['/calendario', 'Calendario'],
                 ['/acerca-de', 'Acerca de']
-            ] -%}
-            <li {% if this.is_child_of(href) %} class="active" {% endif%}>
-              <a href="{{ href|url }}">{{ title }}</a>
-            </li>
-            {% endfor -%}
-        </ul>
-      </div>
-    </nav>
-  </header>
-
-  <main id="main">
+              ] -%}
+                <li class="nav-item">
+                  <a class="nav-link page-scroll {% if this.is_child_of(href) %}active{% endif %}" href="{{ href|url }}">{{ title }}</a>
+                </li>
+              {% endfor -%}
+              <li class="nav-item">
+                <a class="btn btn-singin" href="#">Download</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>  
+      <div class="container">      
+        <div class="row space-100 justify-content-center no-size">
+          {% set events = site.query('/eventos', alt=this.alt).filter(F.success).filter(F.post) %}
+          {% if events %}
+            <div class="col-lg-6 col-md-12 col-xs-12">
+              <div class="contents">
+                <h2 class="head-title">You are Using Free Lite Version</h2>
+                <p>Please, Purchase full version of Slick to get all pages, features and permission to use in commercial projects</p>
+                <div class="header-button">
+                  <a href="https://rebrand.ly/slick-ud" rel="nofollow" target="_blank" class="btn btn-border-filled">Purchase Now</a>
+                  <a href="https://rebrand.ly/slick-ud" rel="nofollow" target="_blank" class="btn btn-border page-scroll">Learn More</a>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+          <div class="col-lg-6 col-md-12 col-xs-12 p-0">
+            <div class="intro-img">
+              <img src="{{ base_url }}static/images/2019.svg" alt="">
+            </div>            
+          </div>
+        </div> 
+      </div>             
+    </header>
+    <!-- Header Section End --> 
     <div class="ga-script">{{ generate_google_analytics() }}</div>
     {%- block body -%}{%- endblock -%}
-  </main>
+  <!-- Footer Section Start -->
+    <footer>
+      <!-- Footer Area Start -->
+      <section id="footer-Content">
+        <div class="container">
+          <!-- Start Row -->
+          <div class="row">
 
-  <!-- <footer id="footer">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-3 widget">
-          <h3 class="widget-title">Contacto</h3>
-          <div class="widget-body">
-            <p><br>
-              <a href="mailto:python.pereira@gmail.com">python.pereira@gmail.com</a><br><br>
-              <br>
-              234 Hidden Pond Road, Ashland City, TN 37015
-            </p>
+          <!-- Start Col -->
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 col-mb-12">
+              
+              <div class="footer-logo">
+               <img src="{{ base_url }}static/img/footer-logo.png" alt="">
+              </div>
+            </div>
+             <!-- End Col -->
+              <!-- Start Col -->
+            <div class="col-lg-2 col-md-6 col-sm-6 col-xs-6 col-mb-12">
+              <div class="widget">
+                <h3 class="block-title">Company</h3>
+                <ul class="menu">
+                  <li><a href="#">  - About Us</a></li>
+                  <li><a href="#">- Career</a></li>
+                  <li><a href="#">- Blog</a></li>
+                  <li><a href="#">- Press</a></li>
+                </ul>
+              </div>
+            </div>
+             <!-- End Col -->
+              <!-- Start Col -->
+            <div class="col-lg-2 col-md-6 col-sm-6 col-xs-6 col-mb-12">
+              <div class="widget">
+                <h3 class="block-title">Product</h3>
+                <ul class="menu">
+                  <li><a href="#">  - Customer Service</a></li>
+                  <li><a href="#">- Enterprise</a></li>
+                  <li><a href="#">- Price</a></li>
+                  <li><a href="#">- Scurity</a></li>
+                  <li><a href="#">- Why SLICK?</a></li>
+                </ul>
+              </div>
+            </div>
+             <!-- End Col -->
+              <!-- Start Col -->
+            <div class="col-lg-2 col-md-6 col-sm-6 col-xs-6 col-mb-12">
+              <div class="widget">
+                <h3 class="block-title">Download App</h3>
+                <ul class="menu">
+                  <li><a href="#">  - Android App</a></li>
+                  <li><a href="#">- IOS App</a></li>
+                  <li><a href="#">- Windows App</a></li>
+                  <li><a href="#">- Play Store</a></li>
+                  <li><a href="#">- IOS Store</a></li>
+                </ul>
+              </div>
+            </div>
+             <!-- End Col -->
+              <!-- Start Col -->
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 col-mb-12">
+              <div class="widget">
+                <h3 class="block-title">Subscribe Now</h3>
+                <p>Appropriately implement calysts for change visa wireless catalysts for change. </p>
+                <div class="subscribe-area">
+                  <input type="email" class="form-control" placeholder="Enter Email">
+                  <span><i class="lni-chevron-right"></i></span>
+                </div>
+              </div>
+            </div>
+            <!-- End Col -->
+          </div>
+          <!-- End Row -->
+        </div>
+        <!-- Copyright Start  -->
+
+        <div class="copyright">
+          <div class="container">
+            <!-- Star Row -->
+            <div class="row">
+              <div class="col-md-12">
+                <div class="site-info text-center">
+                  <p>Crafted by <a href="http://uideck.com" rel="nofollow">UIdeck</a></p>
+                </div>              
+                
+              </div>
+              <!-- End Col -->
+            </div>
+            <!-- End Row -->
           </div>
         </div>
+      <!-- Copyright End -->
+      </section>
+      <!-- Footer area End -->
+      
+    </footer>
+    <!-- Footer Section End --> 
 
-        <div class="col-md-6 widget">
-          <h3 class="widget-title">Text widget</h3>
-          <div class="widget-body">
-            <p><a href="{{ '/coc'|url(alt=this.alt) }}">Adoptamos el código de conducta de ColombiaDev</a></p>
-          </div>
-        </div>
 
-        <div class="col-md-3 widget">
-          <h3 class="widget-title">Form widget</h3>
-          <div class="widget-body">
-            <p>+234 23 9873237<br>
-              <a href="mailto:python.pereira@gmail.com">python.pereira@gmail.com</a><br>
-              <br>
-              Pereira, Risaralda. Colombia
-            </p>
-          </div>
-        </div>
+    <!-- Go To Top Link -->
+    <a href="#" class="back-to-top">
+      <i class="lni-chevron-up"></i>
+    </a> 
 
-      </div>
+    <!-- Preloader -->
+    <div id="preloader">
+      <div class="loader" id="loader-1"></div>
     </div>
-  </footer> -->
+    <!-- End Preloader -->
 
-  <footer id="underfooter">
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12 col-md-3 widget">
-            <p class="follow-me-icons">
-              <a href="https://twitter.com/pythonpereira" target="_blank"><i class="fab fa-twitter fa-2"></i></a>
-              <a href="https://instagram.com/pythonpereira" target="_blank"><i class="fab fa-instagram fa-2"></i></a>
-              <a href="https://github.com/pythonpereira" target="_blank"><i class="fab fa-github-alt fa-2"></i></a>
-              <a href="https://facebook.com/pythonpereira" target="_blank"><i class="fab fa-facebook-f fa-2"></i></a>
-              <a href="https://www.linkedin.com/company/pythonpereira" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-              <a href="https://meetup.com/pythonpereira" target="_blank"><i class="fab fa-meetup fa-2"></i></a>
-            </p>
-            <p>
-              <a href="mailto:python.pereira@gmail.com" target="_blank">
-                <i>python.pereira@gmail.com</i>
-              </a>
-            </p>
-        </div>
-
-        <div class="col-xs-12 col-md-6 widget">
-          <div class="widget-body text-center">
-            <p><a href="{{ '/coc'|url(alt=this.alt) }}">Adoptamos el código de conducta de ColombiaDev</a></p>
-          </div>
-          <div class="widget-body">
-            <p class="text-center">
-              Copyright &copy; 2019, Comunidad Python Pereira - PyPereira<br>
-              Design: <a href="  https://www.gettemplate.com" rel="designer">Initio by GetTemplate</a> </p>
-          </div>
-        </div>
-
-        <div class="col-xs-12 col-md-3 widget">
-          <div class="widget-body text-right">
-            <p>Pereira, Risaralda. Colombia</p>
-          </div>
-        </div>
-
-      </div> <!-- /row justify-content-center of widgets -->
-    </div>
-  </footer>
-
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  <script src="{{ base_url }}static/js/template.js"></script>
-  <script>
-    $(document).ready(function () {
-      $('[data-toggle="tooltip"]').tooltip();
-    });
-  </script>
-  <script src="{{ base_url }}static/js/register-form.js"></script>
-  <script async src="{{ base_url }}static/js/client-code.js"></script>
-</body>
-
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="{{ base_url }}static/js/jquery-min.js"></script>
+    <script src="{{ base_url }}static/js/popper.min.js"></script>
+    <script src="{{ base_url }}static/js/bootstrap.min.js"></script>
+    <script src="{{ base_url }}static/js/owl.carousel.js"></script>      
+    <script src="{{ base_url }}static/js/jquery.nav.js"></script>    
+    <script src="{{ base_url }}static/js/scrolling-nav.js"></script>    
+    <script src="{{ base_url }}static/js/jquery.easing.min.js"></script>     
+    <script src="{{ base_url }}static/js/nivo-lightbox.js"></script>     
+    <script src="{{ base_url }}static/js/jquery.magnific-popup.min.js"></script>     
+    <script src="{{ base_url }}static/js/form-validator.min.js"></script>
+    <script src="{{ base_url }}static/js/contact-form-script.js"></script>   
+    <script src="{{ base_url }}static/js/main.js"></script>
+    
+  </body>
 </html>

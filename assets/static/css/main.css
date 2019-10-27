@@ -534,7 +534,9 @@ button:focus {
     .hero-area .intro-img img {
       display: block;
       height: auto;
-      max-width: 100%; }
+      margin: 0 auto;
+      max-width: 350px;
+      width: 150%; }
 
 /* ==========================================================================
    About 
