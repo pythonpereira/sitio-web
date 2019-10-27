@@ -1,0 +1,155 @@
+{% extends "layout.html" %}
+{%- from "macros/users.html" import render_sponsor_index -%}
+
+{%- block body -%}
+
+<div class="container">
+
+  <!-- Summary -->
+  <div class="row justify-content-center section topspace">
+    <div class="col-md-12">
+      <p class="lead text-center text-muted">{{ this.summary }}</p>
+    </div>
+  </div> 
+  
+  <!-- Skills -->
+  
+  <div class="row justify-content-center section featured topspace">
+    <div class="row justify-content-center">
+      <div class="col-sm-6 col-md-3 text-center">
+        <p><i class="primary-color fas fa-bullhorn fa-4x"></i></p>
+        <p>Realizamos charlas y talleres mensuales para todos los niveles de conocimiento. Allí se hablan de diferentes temas de tecnología; empiezan con un poco de teoría y se finaliza con ejemplos donde de
+        aterrizan dichas ideas</p>
+      </div>
+      <div class="col-sm-6 col-md-3 text-center">
+        <p><i class="primary-color fas fa-microphone fa-4x"></i></p>
+        <p>Contamos con 1 o 2 ponentes en cada reunión</p>
+      </div>
+      <div class="col-sm-6 col-md-3 text-center">
+        <p><i class="primary-color fas fa-users fa-4x"></i></p>
+        <p>Participan entre 30 y 40 personas como asistentes</p>
+      </div>
+      <div class="col-sm-6 col-md-3 text-center">
+        <p><i class="primary-color fas fa-share-alt fa-4x"></i></p>
+        <p>Al finalizar las charlas ofrecemos un pequeño refrigerio generando un espacio de networking donde los participantes comparten ideas.</p>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <a href="{{ '/acerca-de'|url(alt=this.alt) }}" class="btn btn-primary btn-lg">Más Información</a>
+    </div>
+  </div> 
+
+  <hr />
+
+  <!-- Events -->
+
+  <div class="row justify-content-center section recentworks topspace">
+    <h2 class="section-title gt-walsheim primary-color">Últimos Eventos</h2>
+    <div class="thumbnails recentworks row">
+    {% for event in site.query('/eventos/').limit(6) %}
+      <div class="col-sm-6 col-md-4 col-lg-4">
+        <a class="thumbnail" href="{{ event|url }}">
+          <span class="img">
+            <img src="{{ event|url }}/{%- if event.thumbnail -%}{{ event.thumbnail }}{%- else -%}{{ event.image }}{%- endif -%}" alt="">
+            <span class="cover"><span class="more">Ver detalles &rarr;</span></span>
+          </span>
+          <span class="title">{{ event.title }}</span>
+        </a>
+        <span class="details">
+          {%- if event.meetup_url -%}
+          <a href="{{ event.meetup_url }}" target="_blank">Formulario</a> 
+          {%- endif -%}
+          {%- if event.meetup_url -%}
+          | {{ event.pub_date.strftime('%d/%m/%Y') }} 
+          {%- endif -%}
+          <!-- | <a href="">Logotype</a> -->
+          </span>
+        <h4></h4>
+        <p></p>
+        {% if loop.index % 3 == 0 %}
+        </div>
+        <div class="thumbnails recentworks row">
+        {% endif %}
+      </div>
+    {% endfor %}
+    </div>
+  </div>
+
+  <!-- <div class="row justify-content-center section topspace">
+    <div class="panel panel-cta">
+      <div class="panel-body">
+        <div class="col-lg-8">
+          <p>A simple, nice-looking <b>call to action box</b>. Boxing is about respect. getting it for yourself,
+            and taking it away from the other guy. no, this is mount everest. </p>
+        </div>
+        <div class="col-lg-4 text-right">
+          <a href="  https://www.gettemplate.com/downloads/initio.zip " class="btn btn-primary btn-lg">Download
+            template</a>
+        </div>
+      </div>
+    </div>
+  </div>  -->
+
+  <!-- Sponsors -->
+
+  <div class="row justify-content-center section clients topspace">
+    <header class="entry-header">
+      <h2 class="section-title gt-walsheim primary-color">Nuestros Patrocinadores</h2>
+    </header>
+    <div class="entry-content">
+      {% set sponsors = site.query('/usuarios', alt=this.alt).filter(F.sponsor == 'actual') %}
+      <div class="row justify-content-center sponsor-container">
+        {% for sponsor in sponsors %}
+          {{ render_sponsor_index(sponsor) }}
+          {% if loop.index % 4 == 0 %}
+            </div>
+            <div class="row justify-content-center sponsor-container">
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="panel panel-cta">
+        <div class="panel-body">
+          <div class="row justify-content-center">
+            <div class="col-lg-8">
+              <p>Buscamos personas o empresas que quieran apoyarnos para realizar nuestros eventos, recuerden que son totalmente gratuitos para los participantes pero tenemos otros costos asociados al evento como refrigerios,
+              papelería, etc.</p>
+            </div>
+            <div class="col-lg-4">
+              <a href="{{ '/patrocinadores'|url(alt=this.alt) }}" class="btn btn-primary btn-lg">Acerca de Patrocinios</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> <!-- /section -->
+
+  <div class="row justify-content-center section clients topspace">
+    <h3 class="section-title gt-walsheim primary-color">Organizadores</h3>
+  </div>
+  {% set users = site.query('/usuarios', alt=this.alt).filter(F.organizer == 'actual') %}
+  <div class="row justify-content-center">
+    {%- for user in users -%}
+    <div class="col-6 col-md-2">
+      <a href="{{ user|url }}">
+        {% if user.image %}
+        <img class="avatar-circle" src="{{ user|url }}/{{ user.image }}" alt="{{ user.username }}" />
+        {% else %}
+        <img class="avatar-circle" src="{{ base_url }}static/images/avatar.png" alt="{{ user.username }}" />
+        {% endif %}
+      </a>
+      <div>
+        <p class="section-title gt-walsheim"><a href="{{ user|url }}">{{ user.name }} {{ user.last_name }}</a></p>
+      </div>
+      </div>
+      {% if loop.index % 6 == 0 %}
+      </div>
+      <div class="row justify-content-center">
+      {% endif %}
+    {% endfor %}
+  </div>
+
+</div> <!-- /container -->
+{%- endblock -%}
