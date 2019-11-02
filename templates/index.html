@@ -1,14 +1,14 @@
 {% extends "layout.html" %}
 
 {%- block body -%}
-  {#
+
   <!-- Services Section Start -->
   <section id="services" class="section">
     <div class="container">
 
       <div class="row">
         <!-- Start Col -->
-        <div class="col-lg-3 col-md-6 col-xs-12">
+        <div class="col-lg-4 col-md-6 col-xs-12">
           <div class="services-item text-center">
             <div class="icon">
               <i class="lni-cog"></i>
@@ -19,7 +19,7 @@
         </div>
         <!-- End Col -->
         <!-- Start Col -->
-        <div class="col-lg-3 col-md-6 col-xs-12">
+        <div class="col-lg-4 col-md-6 col-xs-12">
           <div class="services-item text-center">
             <div class="icon">
               <i class="lni-brush"></i>
@@ -30,7 +30,7 @@
         </div>
         <!-- End Col -->
         <!-- Start Col -->
-        <div class="col-lg-3 col-md-6 col-xs-12">
+        <div class="col-lg-4 col-md-6 col-xs-12">
           <div class="services-item text-center">
             <div class="icon">
               <i class="lni-heart"></i>
@@ -45,7 +45,7 @@
     </div>
   </section>
   <!-- Services Section End -->
-  #}
+
 
 
   <!-- Business Plan Section Start -->
@@ -955,8 +955,7 @@
             <div>   
               <h2 class="section-title">Últimas Charlas</h2>
               <div class="desc-text">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do</p>  
-                <p>eiusmod tempor incididunt ut labore et dolore.</p>
+                <p>Te compartimos las charlas que tuvimos en nuestros meetups</p>
               </div>
             </div> 
           </div>
@@ -975,6 +974,8 @@
           {% if event.pagination.items %}
             {% for child in event.pagination.items %}
               {% if total_talks.counter < limit_talks %}
+
+                {% set speakers = child.speakers %}
                 <!-- Start Col -->
                 <div class="col-lg-4 col-md-6 col-xs-12 blog-item">
                   <!-- Blog Item Starts -->
@@ -986,12 +987,23 @@
                     </div>
                     <div class="blog-item-text"> 
                       <h3><a href="{{ child|url }}">{{ child.title }}</a></h3>
-                      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry.</p>
-                      <a href="" class="read-more">5 Min read</a>
+                      <p>{{ child.information }}</p>
+                      <a href="{{ child|url }}" class="read-more">Más información</a>
                     </div>
                     <div class="author">
-                      <span class="name"><i class="lni-user"></i><a href="#">Posted by Admin</a></span>
-                      <span class="date float-right"><i class="lni-calendar"></i><a href="#">10 April, 2020</a></span>
+                      <div class="row">
+                        <div class="col-md-7 col-sm-12">
+                          {% if speakers %}
+                            {%- for block in speakers.blocks -%}
+                              {%- set speaker = site.get('/usuarios/' + block.username) -%}
+                                <span class="name"><i class="lni-user"></i><a href="{{ speaker|url }}">{{ speaker.name }} {{ speaker.last_name }}</a></span>
+                            {% endfor %}
+                          {% endif %}
+                        </div>
+                        <div class="col-md-5 col-sm-12">
+                          <span class="date float-right"><i class="lni-calendar"></i><a href="#">{{ event.pub_date.strftime('%d/%m/%Y') }}</a></span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <!-- Blog Item Wrapper Ends-->
