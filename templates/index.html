@@ -781,127 +781,69 @@
   {% endif %}
 
   <!-- Team section Start -->
-  <section id="team" class="section">
-    <div class="container">
-      <!-- Start Row -->
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="team-text section-header text-center">  
-            <div>   
-              <h2 class="section-title">Team Members</h2>
-              <div class="desc-text">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do</p>  
-                <p>eiusmod tempor incididunt ut labore et dolore.</p>
-              </div>
-            </div> 
-          </div>
-        </div>
+  {% set users = site.query('/usuarios', alt=this.alt).filter(F.organizer == 'actual') %}
 
-      </div>
-      <!-- End Row -->
-      <!-- Start Row -->
-      <div class="row">
-        <!-- Start Col -->
-        <div class="col-lg-3 col-md-6 col-xs-12">
-          <div class="single-team">
-            <div class="team-thumb">
-              <img src="{{ base_url }}static/img/team/01.jpg" class="img-fluid" alt="">
-            </div>
-
-            <div class="team-details">
-            <div class="team-social-icons">
-                <ul class="social-list">
-                  <li><a href="#"><i class="lni-facebook-filled"></i></a></li>
-                  <li><a href="#"><i class="lni-twitter-filled"></i></a></li>
-                  <li><a href="#"><i class="lni-google-plus"></i></a></li>
-                </ul>
+  {% if users %}
+    <section id="team" class="section">
+      <div class="container">
+        <!-- Start Row -->
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="team-text section-header text-center">  
+              <div>   
+                <h2 class="section-title">Organizadores</h2>
+                <div class="desc-text">
+                  <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do</p>  
+                  <p>eiusmod tempor incididunt ut labore et dolore.</p> -->
+                </div>
               </div> 
-              <div class="team-inner text-center">
-                <h5 class="team-title">Patric Green</h5>
-                <p>Lead Designer</p>
-              </div>
             </div>
           </div>
+
         </div>
-        <!-- Start Col -->
+        <!-- End Row -->
+        <!-- Start Row -->
+        <div class="row justify-content-center no-size showcase-area">
+          <!-- Start Col -->
+          <div class="showcase-slider owl-carousel">
+            {% for user in users %}
+              <div class="container-user">
+                <div class="single-team">
+                  <div class="team-thumb">
+                    <img src="{{ user|url }}/{{ user.image }}" class="img-fluid" alt="{{ user.username }}">
+                  </div>
 
-        <!-- Start Col -->
-        <div class="col-lg-3 col-md-6 col-xs-12">
-          <div class="single-team">
-            <div class="team-thumb">
-              <img src="{{ base_url }}static/img/team/02.jpg" class="img-fluid" alt="">
-            </div>
-
-            <div class="team-details">
-            <div class="team-social-icons">
-                <ul class="social-list">
-                  <li><a href="#"><i class="lni-facebook-filled"></i></a></li>
-                  <li><a href="#"><i class="lni-twitter-filled"></i></a></li>
-                  <li><a href="#"><i class="lni-google-plus"></i></a></li>
-                </ul>
+                  <div class="team-details">
+                    <div class="team-social-icons">
+                      <ul class="social-list">
+                        {% if user.github_handle %}
+                          <li><a href="https://github.com/{{ user.github_handle }}" target="blank_"><i class="lni-github"></i></a></li>
+                        {% endif %}
+                        {% if user.linkedin_handle %}
+                          <li><a href="https://linkedin.com/in/{{ user.linkedin_handle }}" target="blank_"><i class="lni-linkedin"></i></a></li>
+                        {% endif %}
+                        {% if user.web %}
+                          <li><a href="{{ user.web }}" target="blank_"><i class="lni-world"></i></a></li>
+                        {% endif %}
+                      </ul>
+                    </div> 
+                    <div class="team-inner text-center">
+                      <a href="{{ user|url }}"><h5 class="team-title">{{ user.name }} {{ user.last_name }}</h5></a>
+                      {% if user.position %}
+                        <p>{{ user.position }}</p>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="team-inner text-center">
-                <h5 class="team-title">Celina D Cruze</h5>
-                <p>Front-end Developer</p>
-              </div>
-            </div>
+            {% endfor %}
           </div>
+          <!-- Start Col -->
         </div>
-        <!-- Start Col -->
-
-        <!-- Start Col -->
-        <div class="col-lg-3 col-md-6 col-xs-12">
-          <div class="single-team">
-            <div class="team-thumb">
-              <img src="{{ base_url }}static/img/team/03.jpg" class="img-fluid" alt="">
-            </div>
-
-            <div class="team-details">
-            <div class="team-social-icons">
-                <ul class="social-list">
-                  <li><a href="#"><i class="lni-facebook-filled"></i></a></li>
-                  <li><a href="#"><i class="lni-twitter-filled"></i></a></li>
-                  <li><a href="#"><i class="lni-google-plus"></i></a></li>
-                </ul>
-              </div>
-              <div class="team-inner text-center">
-                <h5 class="team-title">Daryl Dixon</h5>
-                <p>Content Writer</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Start Col -->
-
-        <!-- Start Col -->
-        <div class="col-lg-3 col-md-6 col-xs-12">
-          <div class="single-team">
-            <div class="team-thumb">
-              <img src="{{ base_url }}static/img/team/04.jpg" class="img-fluid" alt="">
-            </div>
-
-            <div class="team-details">
-              <div class="team-social-icons">
-                <ul class="social-list">
-                  <li><a href="#"><i class="lni-facebook-filled"></i></a></li>
-                  <li><a href="#"><i class="lni-twitter-filled"></i></a></li>
-                  <li><a href="#"><i class="lni-google-plus"></i></a></li>
-                </ul>
-              </div>
-              <div class="team-inner text-center">
-                <h5 class="team-title">Mark Parker</h5>
-                <p>Support Engineer</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Start Col -->
-
-
+        <!-- End Row -->
       </div>
-      <!-- End Row -->
-    </div>
-  </section>
+    </section>
+  {% endif %}
   <!-- Team section End -->
 
 

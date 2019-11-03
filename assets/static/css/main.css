@@ -1050,7 +1050,10 @@ button:focus {
 /* ==========================================================================
    team section
    ========================================================================== */
-#team .single-team {
+  #team .container-user {
+    padding: 0 5px;
+  }
+  #team .single-team {
   border: 1px solid #ddd;
   position: relative;
   -moz-transition: all .8s ease;
