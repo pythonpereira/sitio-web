@@ -19,6 +19,7 @@ Domain Path:      /languages/
   --back-color: #00041E;
   --blue-first: #1e88e5;
   --blue-second: #bbdefb;
+  --blue-third: #64b5f6;
 }
 
 /* ==========================================================================
@@ -876,6 +877,10 @@ button:focus {
       color: var(--back-color);
       font-style: italic;
       line-height: 35px; }
+  #testimonial #client-testimonial .content-inner .client-thumb img {
+    height: 90px;
+    width: 90px;
+  }
     #testimonial #client-testimonial .author-info {
       padding-top: 26px;
       padding-bottom: 20px; }
@@ -974,7 +979,7 @@ button:focus {
     transition: all 200ms;
     opacity: 0.5; }
   #testimonial .video-play-button:hover:after {
-    background-color: #28ca81; }
+    background-color: var(--blue-third); }
   #testimonial .video-play-button:hover span {
     border-left: 22px solid #fff;
     border-top: 14px solid transparent;

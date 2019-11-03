@@ -711,113 +711,74 @@
   </section>
   <!-- Our Pricing Plan Section End --> 
 
-  <!-- Client Testimoninals Section Start -->
-  <section id="testimonial" class="section">
-    <div class="container right-position">
-      <!-- Start Row -->
-      <div class="row">
-        <div class="col-md-12 col-sm-12">
-          <div class="video-promo-content text-center">
+  {% set events = site.query('/eventos', alt=this.alt) %}
+  {% set talk_video = namespace(value=none) %}
+  
+  {% for event in events %}
+    {% if event.pagination.items %}
+      {% for child in event.pagination.items %}
+        {% if child.video_code and not talk_video.value %}
+          {% set talk_video.value = child %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  {% endfor %}
 
-            <a id="play-video" class="video-play-button video-popup" href="https://www.youtube.com/watch?v=Y4fodpIwal8&list=RDXCElIIYx_8s&index=13">
-              <span></span>
-            </a>
 
+  {% if talk_video.value.video_code %}
+    {% set speakers = talk_video.value.speakers %}
+    <!-- Client Testimoninals Section Start -->
+    <section id="testimonial" class="section">
+      <div class="container right-position">
+        <!-- Start Row -->
+        <div class="row">
+          <div class="col-md-12 col-sm-12">
+            <div class="video-promo-content text-center">
+
+              <a id="play-video" class="video-play-button video-popup" href="https://www.youtube.com/watch?v={{ talk_video.value.video_code }}">
+                <span></span>
+              </a>
+
+            </div>
           </div>
         </div>
-      </div>
-      <!-- End Row -->
-      <!-- Start Row -->
-      <div class="row justify-content-center testimonial-area">
-        <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12 pr-20 pl-20" style="overflow: hidden;padding-bottom: 60px">
-          <div id="client-testimonial" class="text-center owl-carousel">
-            <div class="item">
-              <div class="testimonial-item">
-                <div class="content-inner">
-                  <p class="description">Appropriately implement one-to-one catalysts for change <br> vis-a-vis wireless catalysts for change. Enthusiastically architect <br> adaptive e-tailers after sustainable total linkage. Appropriately <br> implement one-to-one catalysts for change.</p>
-                  <div class="author-info">
-                    <h5>Tahmina Anny ; <span> UIdeck Customer</span></h5>
+        <!-- End Row -->
+        <!-- Start Row -->
+        <div class="row justify-content-center testimonial-area">
+          <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12 pr-20 pl-20" style="overflow: hidden;padding-bottom: 60px">
+            <div id="client-testimonial" class="text-center owl-carousel">
+              <div class="item">
+                <div class="testimonial-item">
+                  <div class="content-inner">
+                    <p class="description">{{ talk_video.value.information }}</p>
+                    {% if speakers %}
+                      {%- for block in speakers.blocks -%}
+                        {%- set speaker = site.get('/usuarios/' + block.username) -%}
+                          <div class="author-info">
+                            <a href="{{ talk_video.value|url }}"><h5>{{ talk_video.value.title }} ; <span> {{ speaker.name }} {{ speaker.last_name }}</span></h5></a>
+                          </div>
+                          {% if speaker.image %}
+                            <div class="client-thumb">
+                              <a href="{{ speaker|url }}"><img src="{{ speaker|url }}/{{ speaker.image }}" alt=""></a>
+                            </div>
+                          {% else %}
+                            <div class="client-thumb">
+                              <img src="{{ base_url }}static/images/avatar.png" alt="">
+                            </div>
+                          {% endif %}
+                      {% endfor %}
+                    {% endif %}
                   </div>
-                </div>
-                <div class="client-thumb">
-                  <img src="{{ base_url }}static/img/testimonial/01.png" alt="">
                 </div>
               </div>
             </div>
-            <div class="item">
-              <div class="testimonial-item">
-                <div class="content-inner">
-                  <p class="description">Appropriately implement one-to-one catalysts for change <br> vis-a-vis wireless catalysts for change. Enthusiastically architect <br> adaptive e-tailers after sustainable total linkage. Appropriately <br> implement one-to-one catalysts for change.</p>
-                  <div class="author-info">
-                    <h5>Tahmina Anny ; <span> UIdeck Customer</span></h5>
-                  </div>
-                </div>
-                <div class="client-thumb">
-                  <img src="{{ base_url }}static/img/testimonial/01.png" alt="">
-                </div>
-              </div>
-            </div>
-            <div class="item">
-              <div class="testimonial-item">
-                <div class="content-inner">
-                  <p class="description">Appropriately implement one-to-one catalysts for change <br> vis-a-vis wireless catalysts for change. Enthusiastically architect <br> adaptive e-tailers after sustainable total linkage. Appropriately <br> implement one-to-one catalysts for change.</p>
-                  <div class="author-info">
-                    <h5>Tahmina Anny ; <span> UIdeck Customer</span></h5>
-                  </div>
-                </div>
-                <div class="client-thumb">
-                  <img src="{{ base_url }}static/img/testimonial/01.png" alt="">
-                </div>
-              </div>
-            </div>
-            <div class="item">
-              <div class="testimonial-item">
-                <div class="content-inner">
-                  <p class="description">Appropriately implement one-to-one catalysts for change <br> vis-a-vis wireless catalysts for change. Enthusiastically architect <br> adaptive e-tailers after sustainable total linkage. Appropriately <br> implement one-to-one catalysts for change.</p>
-                  <div class="author-info">
-                    <h5>Tahmina Anny ; <span> UIdeck Customer</span></h5>
-                  </div>
-                </div>
-                <div class="client-thumb">
-                  <img src="{{ base_url }}static/img/testimonial/01.png" alt="">
-                </div>
-              </div>
-            </div>
-            <div class="item">
-              <div class="testimonial-item">
-                <div class="content-inner">
-                  <p class="description">Appropriately implement one-to-one catalysts for change <br> vis-a-vis wireless catalysts for change. Enthusiastically architect <br> adaptive e-tailers after sustainable total linkage. Appropriately <br> implement one-to-one catalysts for change.</p>
-                  <div class="author-info">
-                    <h5>Tahmina Anny ; <span> UIdeck Customer</span></h5>
-                  </div>
-                </div>
-                <div class="client-thumb">
-                  <img src="{{ base_url }}static/img/testimonial/01.png" alt="">
-                </div>
-              </div>
-            </div>
-            <div class="item">
-              <div class="testimonial-item">
-                <div class="content-inner">
-                  <p class="description">Appropriately implement one-to-one catalysts for change <br> vis-a-vis wireless catalysts for change. Enthusiastically architect <br> adaptive e-tailers after sustainable total linkage. Appropriately <br> implement one-to-one catalysts for change.</p>
-                  <div class="author-info">
-                    <h5>Tahmina Anny ; <span> UIdeck Customer</span></h5>
-                  </div>
-                </div>
-                <div class="client-thumb">
-                  <img src="{{ base_url }}static/img/testimonial/01.png" alt="">
-                </div>
-              </div>
-            </div>
-
           </div>
         </div>
+        <!-- End Row -->
       </div>
-      <!-- End Row -->
-    </div>
-  </section>
-  <!-- Client Testimoninals Section End --> 
-
+    </section>
+    <!-- Client Testimoninals Section End --> 
+  {% endif %}
 
   <!-- Team section Start -->
   <section id="team" class="section">
